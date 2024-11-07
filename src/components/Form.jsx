@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Card from './Card';
+import FormStyles from '../styles/Form.module.css';
 
 const Form = () => {
 	const [gato, setGato] = useState({
@@ -8,28 +9,26 @@ const Form = () => {
 		peso: '',
 	});
 
-  //* No se me ocurrió otra manera, ya que al cambio de los campos, la Card tambien se actualizaba
-  //* Claramente ese no es el comportamiento deseado
+	//* No se me ocurrió otra manera, ya que al cambio de los campos, la Card tambien se actualizaba, y
+	//* claramente ese no es el comportamiento deseado
 	const [gatoVal, setGatoVal] = useState(null);
 	const [error, setError] = useState(false);
-	//console.log(gato);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
-		if (gato.nombre.length >= 3 && gato.alias.length >= 6) {
+		//* Atencion, tambien verifica si el peso gatuno es numerico
+		if (gato.nombre.length >= 3 && gato.alias.length >= 6 && !isNaN(gato.peso)) {
 			setError(false);
-      setGatoVal(gato);
-
+			setGatoVal(gato);
 		} else {
 			setError(true);
-      setGatoVal(null);
+			setGatoVal(null);
 		}
 	};
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} className={FormStyles.formContainer}>
 				<div>
 					<label>Nombre: </label>
 					<input type="text" onChange={(event) => setGato({ ...gato, nombre: event.target.value })} />
@@ -45,7 +44,7 @@ const Form = () => {
 				<button>Enviar</button>
 				{error ? <h4 style={{ color: 'red' }}>Por favor chequea que la información sea correcta</h4> : null}
 			</form>
-				{gatoVal && <Card gato={gatoVal} />}
+			{gatoVal && <Card gato={gatoVal} />}
 		</div>
 	);
 };

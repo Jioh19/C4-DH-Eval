@@ -1,4 +1,4 @@
-.cardContainer {
+.formContainer {
 
   align-items: center;
   border: 2px solid firebrick;
@@ -7,10 +7,7 @@
   padding: 10px;
   background-color: #fdf2da;
   color: firebrick;
-}
-.cardContainer img {
-  width: 280px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
+  & button {
+    margin-top: 0.5rem;
+  }
 }
