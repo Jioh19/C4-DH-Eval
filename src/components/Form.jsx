@@ -13,11 +13,13 @@ const Form = () => {
 	//* claramente ese no es el comportamiento deseado
 	const [gatoVal, setGatoVal] = useState(null);
 	const [error, setError] = useState(false);
-
+  //* Mínimo 3 letras, y prohibe que la primera letra sea espacio. Otra opcion era usar trimStart().
+  //* pero quise probar que tal salia con regex.
+	const regexNum = /^[^\s].{2,}$/;
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		//* Atencion, tambien verifica si el peso gatuno es numerico
-		if (gato.nombre.length >= 3 && gato.alias.length >= 6 && !isNaN(gato.peso)) {
+		if (regexNum.test(gato.nombre) && gato.alias.length >= 6 && !isNaN(gato.peso)) {
 			setError(false);
 			setGatoVal(gato);
 		} else {
